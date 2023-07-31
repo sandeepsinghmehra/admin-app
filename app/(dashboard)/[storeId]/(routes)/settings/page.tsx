@@ -22,12 +22,11 @@ const SettingsPage: React.FC<SettingsPageProps> = async({params}) => {
     if(!store) {
         redirect("/");
     }
-    console.log("store", store);
-    
+    // console.log("store", store);
     return (
         <div className="flex-col">
             <div className="flex-1 space-y-4 pt-6 p-8">
-                <SettingsForm initialData={store} />
+                <SettingsForm initialData={JSON.parse(JSON.stringify(store))} />
             </div>
         </div>
     )

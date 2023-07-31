@@ -1,4 +1,4 @@
-import {redirect} from "next/navigation";
+import { redirect } from "next/navigation";
 
 import { auth } from "@clerk/nextjs";
 import Store from "@/models/Store";
@@ -12,11 +12,11 @@ export default async function SetupLayout({
     if(!userId) {
         redirect('/sign-in');
     }
-    console.log("userId", userId);
+    // console.log("userId", userId);
     const store:any = await Store.findOne({
         userId: userId
     });
-    console.log("stroe", store);
+    // console.log("stroe", store);
     if(store){
         redirect(`/${store?._id}`)
     }

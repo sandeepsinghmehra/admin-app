@@ -3,9 +3,20 @@ import mongoose, { Schema } from "mongoose";
 const storeSchema = new Schema({
         name: String,
         userId: String,
-    },
-    {
-        timestamps: true, // Include `createdAt` and `updatedAt` fields
+        billboards: [
+            { 
+                type: Schema.Types.ObjectId, 
+                ref: 'Billboard', // Referencing the 'Billboard' model 
+            }
+        ],
+        createdAt: {
+            type: Date,
+            default: Date.now,
+        },
+        updatedAt: { 
+            type: Date, 
+            default: Date.now 
+        },
     }
 );
 

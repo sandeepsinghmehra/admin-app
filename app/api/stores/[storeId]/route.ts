@@ -1,7 +1,9 @@
-import Store from "@/models/Store";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
+import { connectToDatabase } from "@/dbConfig/dbConfig";
+import Store from "@/models/Store";
 
+connectToDatabase();
 export async function PATCH(req: Request, {params}: {params: {storeId: string}}) {
     try {
         const {userId} = auth();

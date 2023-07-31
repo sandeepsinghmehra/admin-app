@@ -14,7 +14,6 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 type PopoverTriggerProps = React.ComponentPropsWithoutRef<typeof PopoverTrigger>
 interface StoreSwitcherProps extends PopoverTriggerProps {
     items: StoreType[]
-    // items: any[]
 }
 export default function StoreSwitcher({
     className,
@@ -25,11 +24,12 @@ export default function StoreSwitcher({
     const router = useRouter();
 
     const [open, setOpen] = useState(false);
+
     const formattedItems = items.map((item)=>({
         label: item.name,
         value: item._id
     }));
-    const currentStore = formattedItems.find((item)=> item.value === params.storeId );
+    const currentStore = formattedItems.find((item:any)=> item.value === params.storeId );
 
     const onStoreSelect = (store: {label: string, value: string}) => {
         setOpen(false);

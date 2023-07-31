@@ -6,3 +6,12 @@ type StoreType = {
     updatedAt?: Date
 }
 
+type BillboardType = {
+    _id?: String,
+    storeId: string,
+    label: string,
+    imageUrl: string,
+    createdAt?: Date
+    updatedAt?: Date
+}
+
