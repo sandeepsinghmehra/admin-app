@@ -5,7 +5,6 @@ import { connectToDatabase } from '@/dbConfig/dbConfig';
 
 connectToDatabase();
 const BillboardPage = async({params}: {params: { billboardId: string }}) => {
-    console.log("billboardId in params", params, params.billboardId);
     let billboard = null;
     if (params.billboardId !== "new") {
         billboard = await Billboard.findOne({_id: params.billboardId});

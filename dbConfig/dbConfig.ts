@@ -1,6 +1,7 @@
 import mongoose, { ConnectOptions } from "mongoose";
 import Billboard from "@/models/Billboard";
 import Category from "@/models/Category";
+import Size from "@/models/Size";
 import Store from "@/models/Store";
 
 export async function connectToDatabase() {
@@ -28,7 +29,8 @@ export async function connectToDatabase() {
 const models = {
   Billboard,
   Category,
-  Store
+  Size,
+  Store,
 };
 
 export default models;
