@@ -2,6 +2,7 @@ import mongoose, { ConnectOptions } from "mongoose";
 import Billboard from "@/models/Billboard";
 import Category from "@/models/Category";
 import Size from "@/models/Size";
+import Color from "@/models/Color";
 import Store from "@/models/Store";
 
 export async function connectToDatabase() {
@@ -30,6 +31,7 @@ const models = {
   Billboard,
   Category,
   Size,
+  Color,
   Store,
 };
 

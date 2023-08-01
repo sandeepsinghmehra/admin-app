@@ -2,6 +2,7 @@ import mongoose, { Document, Schema, Model, model, Types } from "mongoose";
 import { CategoryType } from "./Category";
 import { BillboardType } from "./Billboard";
 import { SizeType } from "./Size";
+import { ColorType } from "./Color";
 
 export interface StoreType extends Document {
     _id?: Types.ObjectId,
@@ -10,6 +11,7 @@ export interface StoreType extends Document {
     billboards?: BillboardType[],
     categories?: CategoryType[], 
     sizes?: SizeType[],
+    colors?: ColorType[],
     createdAt?: Date,
     updatedAt?: Date,
 }
@@ -33,6 +35,12 @@ const storeSchema = new Schema<StoreType>({
             {
                 type: Schema.Types.ObjectId,
                 ref: 'Size', // Referencing the 'Size' model
+            }
+        ],
+        colors: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Color', // Referencing the 'Color' model
             }
         ],
         createdAt: {
