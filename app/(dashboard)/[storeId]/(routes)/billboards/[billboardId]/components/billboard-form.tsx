@@ -65,8 +65,6 @@ const BillboardForm: React.FC<BillboardFormProps> = ({initialData}) => {
             } else {
                 await axios.post(`/api/${params.storeId}/billboards`, data);
             }
-            
-            // console.log("data", response.data); 
             router.refresh();
             router.push(`/${params.storeId}/billboards`)
             toast.success(toastMessage);
@@ -82,7 +80,7 @@ const BillboardForm: React.FC<BillboardFormProps> = ({initialData}) => {
             setLoading(true);
             await axios.delete(`/api/${params.storeId}/billboards/${params.billboardId}`);
             router.refresh();
-            router.push(`${params.storeId}/billboards`);
+            router.push(`/${params.storeId}/billboards`);
             toast.success("Billboard deleted.")
         } catch (error) {
             console.log("error", error);

@@ -13,19 +13,24 @@ export const MainNav = ({
 
     const routes = [
         {
-            href: `${params.storeId}`,
+            href: `/${params.storeId}`,
             label: 'Overview',
-            active: pathName === `${params.storeId}`,
+            active: pathName === `/${params.storeId}`,
         },
         {
-            href: `${params.storeId}/billboards`,
+            href: `/${params.storeId}/billboards`,
             label: 'Billboards',
-            active: pathName === `${params.storeId}/billboards`,
+            active: pathName === `/${params.storeId}/billboards`,
         },
         {
-            href: `${params.storeId}/settings`,
+            href: `/${params.storeId}/categories`,
+            label: 'Categories',
+            active: pathName === `/${params.storeId}/categories`,
+        },
+        {
+            href: `/${params.storeId}/settings`,
             label: 'Settings',
-            active: pathName === `${params.storeId}/settings`,
+            active: pathName === `/${params.storeId}/settings`,
         }
     ];
     return (
