@@ -26,7 +26,7 @@ import ImageUpload from "@/components/ui/image-upload";
 
 
 interface BillboardFormProps {
-    initialData: string;
+    initialData: BillboardType | null;
 }
 
 const formSchema = z.object({
@@ -37,20 +37,19 @@ const formSchema = z.object({
 type BillboardFormValues = z.infer<typeof formSchema>;
 
 const BillboardForm: React.FC<BillboardFormProps> = ({initialData}) => {
-    const parsedInitialData: BillboardType | null = JSON.parse(initialData);
     const router = useRouter();
     const params = useParams();
 
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    const title = parsedInitialData ? "Edit billboard": "Create billboard";
-    const description = parsedInitialData ? "Edit a billboard": "Add a new billboard";
-    const toastMessage = parsedInitialData ? "Billboard updated.": "Billboard created.";
-    const action = parsedInitialData ? "Save changes": "Create";
+    const title = initialData ? "Edit billboard": "Create billboard";
+    const description = initialData ? "Edit a billboard": "Add a new billboard";
+    const toastMessage = initialData ? "Billboard updated.": "Billboard created.";
+    const action = initialData ? "Save changes": "Create";
     const form = useForm<BillboardFormValues>({
         resolver: zodResolver(formSchema),
-        defaultValues: parsedInitialData || {
+        defaultValues: initialData || {
             label: '',
             imageUrl: ''
         }
@@ -60,7 +59,7 @@ const BillboardForm: React.FC<BillboardFormProps> = ({initialData}) => {
         console.log("setting components", data);
         try {
             setLoading(true);
-            if(parsedInitialData) {
+            if(initialData) {
                 await axios.patch(`/api/${params.storeId}/billboards/${params.billboardId}`, data);
             } else {
                 await axios.post(`/api/${params.storeId}/billboards`, data);
@@ -103,7 +102,7 @@ const BillboardForm: React.FC<BillboardFormProps> = ({initialData}) => {
                     title={title}
                     description={description}
                 />
-                {parsedInitialData && (
+                {initialData && (
                     <Button
                         disabled={loading}
                         variant={'destructive'}
