@@ -3,6 +3,7 @@ import Image, { ImageType } from "./Image";
 import { CategoryType } from "./Category";
 import { SizeType } from "./Size";
 import { ColorType } from "./Color";
+import { OrderItemType } from "./OrderItem";
 
 export interface ProductType extends Document {
     _id?: Types.ObjectId,
@@ -14,7 +15,8 @@ export interface ProductType extends Document {
     price: mongoose.Types.Decimal128; // Use Schema.Types.Decimal128 for the price field
     isFeatured: boolean,
     isArchived: boolean,
-    images?: ImageType[],
+    images: ImageType[],
+    orderItems: OrderItemType[],
     createdAt?: Date,
     updatedAt?: Date,
 }
@@ -55,6 +57,12 @@ const productSchema = new Schema<ProductType>({
         {
             type: Schema.Types.ObjectId,
             ref: 'Image', // Referencing the 'Image' model
+        }
+    ],
+    orderItems: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'OrderItem', // Referencing the 'OrderItem' model
         }
     ],
     createdAt: {
