@@ -3,6 +3,7 @@ import { CategoryType } from "./Category";
 import { BillboardType } from "./Billboard";
 import { SizeType } from "./Size";
 import { ColorType } from "./Color";
+import { ProductType } from "./Product";
 
 export interface StoreType extends Document {
     _id?: Types.ObjectId,
@@ -12,6 +13,7 @@ export interface StoreType extends Document {
     categories?: CategoryType[], 
     sizes?: SizeType[],
     colors?: ColorType[],
+    products?: ProductType[],
     createdAt?: Date,
     updatedAt?: Date,
 }
@@ -41,6 +43,12 @@ const storeSchema = new Schema<StoreType>({
             {
                 type: Schema.Types.ObjectId,
                 ref: 'Color', // Referencing the 'Color' model
+            }
+        ],
+        products: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Product', // Referencing the 'Color' model
             }
         ],
         createdAt: {

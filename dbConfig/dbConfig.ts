@@ -4,6 +4,8 @@ import Category from "@/models/Category";
 import Size from "@/models/Size";
 import Color from "@/models/Color";
 import Store from "@/models/Store";
+import Product from "@/models/Product";
+import Image from "@/models/Image";
 
 export async function connectToDatabase() {
   try {
@@ -32,6 +34,8 @@ const models = {
   Category,
   Size,
   Color,
+  Product,
+  Image,
   Store,
 };
 

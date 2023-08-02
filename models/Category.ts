@@ -1,11 +1,13 @@
 import mongoose, { Document, Schema, Model, model, Types } from "mongoose";
 import Billboard, { BillboardType } from "./Billboard";
+import { ProductType } from "./Product";
 
 export interface CategoryType extends Document {
     _id?: Types.ObjectId,
     storeId: string,
-    billboardId: BillboardType; // Use the BillboardType if available,
+    billboardId: BillboardType, // Use the BillboardType if available,
     name: string,
+    products?: ProductType[],
     createdAt?: Date,
     updatedAt?: Date,
 }
@@ -17,6 +19,12 @@ const categorySchema = new Schema<CategoryType>({
         ref: 'Billboard', // Referencing the 'Billboard' model
     },
     name: String,
+    products: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Product', // Referencing the 'Product' model
+        }
+    ],
     createdAt: {
         type: Date,
         default: Date.now,
