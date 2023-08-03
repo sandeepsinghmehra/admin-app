@@ -85,8 +85,6 @@ export async function GET(
         const sizeId = searchParams.get("sizeId") || undefined;
         const colorId = searchParams.get("colorId") || undefined;
         const isFeatured = searchParams.get("isFeatured");
-        
-        console.log("categoryId: ", categoryId, " sizeId: ", sizeId, " colorId: ", colorId, " isFeatured: ", isFeatured, " storeId: ", params.storeId)
 
         if(!params.storeId) {
             return new NextResponse("Store ID is required", { status: 400 })
