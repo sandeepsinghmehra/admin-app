@@ -14,7 +14,7 @@ export async function GET(
         if(!params.sizeId) {
             return new NextResponse("Size id is required", { status: 400 })
         }
-        const size = await Size.find(
+        const size = await Size.findOne(
             {
                 _id: params.sizeId,
             },

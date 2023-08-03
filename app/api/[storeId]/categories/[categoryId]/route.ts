@@ -14,7 +14,7 @@ export async function GET(
         if(!params.categoryId) {
             return new NextResponse("Category id is required", { status: 400 })
         }
-        const category = await Category.find(
+        const category = await Category.findOne(
             {
                 _id: params.categoryId,
             },

@@ -14,7 +14,7 @@ export async function GET(
         if(!params.colorId) {
             return new NextResponse("Color id is required", { status: 400 })
         }
-        const color = await Color.find(
+        const color = await Color.findOne(
             {
                 _id: params.colorId,
             },

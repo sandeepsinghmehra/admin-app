@@ -14,7 +14,7 @@ export async function GET(
         if(!params.billboardId) {
             return new NextResponse("Billboard id is required", { status: 400 })
         }
-        const billboard = await Billboard.find(
+        const billboard = await Billboard.findOne(
             {
                 _id: params.billboardId,
             },

@@ -15,7 +15,7 @@ export async function GET(
         if(!params.productId) {
             return new NextResponse("Product id is required", { status: 400 })
         }
-        const product = await Product.find({
+        const product = await Product.findOne({
                 _id: params.productId,
             })
             .populate('images')
