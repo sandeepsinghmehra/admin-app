@@ -14,11 +14,10 @@ export async function GET(
         if(!params.categoryId) {
             return new NextResponse("Category id is required", { status: 400 })
         }
-        const category = await Category.findOne(
-            {
+        const category = await Category.findOne({
                 _id: params.categoryId,
-            },
-        );
+            })
+            .populate('billboardId');
         return NextResponse.json(category);
     } catch (error) {
         console.log("[CATEGORY_GET]: ", error);
