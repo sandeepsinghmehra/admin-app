@@ -126,7 +126,7 @@ const ColorForm: React.FC<ColorFormProps> = ({initialData}) => {
                                 <FormItem>
                                     <FormLabel>Name</FormLabel>
                                     <FormControl>
-                                        <Input disabled={loading} placeholder="Size name" {...field} />
+                                        <Input disabled={loading} placeholder="Color name" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -140,7 +140,7 @@ const ColorForm: React.FC<ColorFormProps> = ({initialData}) => {
                                     <FormLabel>Value</FormLabel>
                                     <FormControl>
                                         <div className="flex items-center gap-x-4">
-                                            <Input disabled={loading} placeholder="Size value" {...field} />
+                                            <Input disabled={loading} placeholder="Color value" {...field} />
                                             <div 
                                                 className="border rounded-full p-4"
                                                 style={{background: field.value}}
