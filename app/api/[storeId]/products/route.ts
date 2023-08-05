@@ -52,7 +52,6 @@ export async function POST(req: Request, {params}: {params: { storeId: string}})
         if(!storeByuserId) {
             return new NextResponse("Unauthorized", {status: 403 })
         }
-        console.log("body in post: ", body)
 
         // Assuming `images` is an array of objects with `url` properties
         const newImages = await Promise.all(images.map((image:any) => Image.create({ url: image.url })));

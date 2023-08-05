@@ -100,7 +100,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
             if(initialData) {
                 await axios.patch(`/api/${params.storeId}/products/${params.productId}`, data);
             } else {
-                console.log("body onSubmit", data);
+                // console.log("body onSubmit", data);
                 await axios.post(`/api/${params.storeId}/products`, data);
             }
             router.refresh();
