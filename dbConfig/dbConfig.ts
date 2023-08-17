@@ -8,6 +8,7 @@ import Product from "@/models/Product";
 import Image from "@/models/Image";
 import Order from "@/models/Order";
 import OrderItem from "@/models/OrderItem";
+import User from "@/models/User";
 
 export async function connectToDatabase() {
   try {
@@ -41,6 +42,7 @@ const models = {
   OrderItem,
   Image,
   Store,
+  User
 };
 
 export default models;
