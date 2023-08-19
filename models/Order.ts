@@ -4,9 +4,11 @@ import { OrderItemType } from "./OrderItem";
 export interface OrderType extends Document {
     _id?: Types.ObjectId,
     storeId: string,
+    paymentInfo: string,
     isPaid: boolean,
     phone: string,
     address: string,
+    status: string,
     orderItems: OrderItemType[],
     createdAt?: Date,
     updatedAt?: Date,
@@ -17,6 +19,10 @@ const orderSchema = new Schema<OrderType>({
     isPaid: {
         type: Boolean,
         default: false,   
+    },
+    paymentInfo: {
+        type: String,
+        default: ""
     },
     phone: {
         type: String,
@@ -32,6 +38,10 @@ const orderSchema = new Schema<OrderType>({
             ref: 'OrderItem', // Referencing the 'OrderItem' model
         }
     ],
+    status: {
+        type: String,
+        default: 'Pending'
+    },
     createdAt: {
         type: Date,
         default: Date.now,

@@ -12,9 +12,13 @@ export interface ProductType extends Document {
     sizeId: SizeType,  // Use the BillboardType if available,
     colorId: ColorType,  // Use the BillboardType if available,
     name: string,
+    description: string,
     price: mongoose.Types.Decimal128; // Use Schema.Types.Decimal128 for the price field
     isFeatured: boolean,
     isArchived: boolean,
+    isFavourite: boolean,
+    availableQuantity: number,
+    quantity: number,
     images: ImageType[],
     orderItems: OrderItemType[],
     createdAt?: Date,
@@ -36,6 +40,7 @@ const productSchema = new Schema<ProductType>({
         ref: 'Color', // Referencing the 'Color' model
     },
     name: String,
+    description: String,
     price: {
         type: Schema.Types.Decimal128, // Add the price field using Schema.Types.Decimal128
         validate: {
@@ -45,6 +50,13 @@ const productSchema = new Schema<ProductType>({
             message: 'Price must be a decimal number greater than or equal to 1.',
         },
     },
+    availableQuantity: {
+        type: Number
+    },
+    quantity: {
+        type: Number,
+        default: 1,
+    },
     isFeatured: {
         type: Boolean,
         default: false,   
@@ -52,6 +64,10 @@ const productSchema = new Schema<ProductType>({
     isArchived: {
         type: Boolean,
         default: false,   
+    },
+    isFavourite: {
+        type: Boolean,
+        default: false,
     },
     images: [
         {
