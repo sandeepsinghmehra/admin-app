@@ -8,6 +8,18 @@ const nextConfig = {
               port: '',
               pathname: '/**',
             },
+            {
+                protocol: 'https',
+                hostname: 'securegw-stage.paytm.in',
+                port: '',
+                pathname: '/**',
+            },
+            {
+                protocol: 'https',
+                hostname: 'securegw.paytm.in',
+                port: '',
+                pathname: '/**',
+            }
         ],
     }
 }
