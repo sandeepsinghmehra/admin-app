@@ -8,6 +8,7 @@ import { CldUploadWidget } from "next-cloudinary";
 import { Button } from "@/components/ui/button";
 
 
+
 interface ImageUploadProps {
     disabled: boolean;
     onChange: (value: string) => void;
@@ -21,6 +22,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
     value
 }) => {
     const [isMounted, setIsMounted] = useState(false);
+    const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESETS!;
 
     useEffect(()=>{
         setIsMounted(true);
@@ -53,7 +55,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
                     </div>
                 ))}
             </div>
-            <CldUploadWidget onUpload={onUpload} uploadPreset="i53ht3mu">
+            <CldUploadWidget onUpload={onUpload} uploadPreset={uploadPreset}>
                 {({open}) => {
                     const onClick = () => {
                         open();

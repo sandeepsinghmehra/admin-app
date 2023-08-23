@@ -13,12 +13,15 @@ export async function POST(req: Request, {params}: {params: { storeId: string}})
         const body = await req.json();
         const { 
             name,
+            description,
             price,
+            availableQuantity,
             categoryId,
             colorId,
             sizeId,
             images,
             isFeatured,
+            isFavourite,
             isArchived
          } = body;
         if(!userId) {
@@ -27,8 +30,14 @@ export async function POST(req: Request, {params}: {params: { storeId: string}})
         if(!name) {
             return new NextResponse("Name is required", { status: 400 })
         }
+        if(!description) {
+            return new NextResponse("Description is required", { status: 400 })
+        }
         if(!price) {
             return new NextResponse("Price is required", { status: 400 })
+        }
+        if(!availableQuantity) {
+            return new NextResponse("Available Quantity is required", { status: 400 })
         }
         if(!categoryId) {
             return new NextResponse("Category id is required", { status: 400 })
@@ -55,16 +64,19 @@ export async function POST(req: Request, {params}: {params: { storeId: string}})
 
         // Assuming `images` is an array of objects with `url` properties
         const newImages = await Promise.all(images.map((image:any) => Image.create({ url: image.url })));
-
+        console.log("Number body", body);
         const createdProduct = await Product.create({
             name,
+            description,
             price,
+            availableQuantity: Number(availableQuantity),
             categoryId,
             colorId,
             sizeId,
             images: newImages.map(image => image._id),
             isFeatured,
             isArchived,
+            isFavourite,
             storeId: params.storeId
         })
         return NextResponse.json(createdProduct)
@@ -79,10 +91,12 @@ export async function GET(
     {params}: {params: { storeId: string}}
 ) {
     try {
+        console.log("products GET called")
         const { searchParams } = new URL(req.url);
         const categoryId = searchParams.get("categoryId") || undefined;
         const sizeId = searchParams.get("sizeId") || undefined;
         const colorId = searchParams.get("colorId") || undefined;
+        const name = searchParams.get("name") || undefined;
         const isFeatured = searchParams.get("isFeatured");
 
         if(!params.storeId) {
@@ -91,32 +105,33 @@ export async function GET(
         const filter:any = {
             storeId: params.storeId,
             isArchived: false,
-          };
-          
-          if (categoryId) {
+        };
+        if (name) {
+            filter.name = name;
+        }
+        if (categoryId) {
             filter.categoryId = categoryId;
-          }
+        }
           
-          if (sizeId) {
+        if (sizeId) {
             filter.sizeId = sizeId;
-          }
+        }
           
-          if (colorId) {
+        if (colorId) {
             filter.colorId = colorId;
-          }
+        }
           
-          if (isFeatured) {
+        if (isFeatured) {
             filter.isFeatured = true;
-          }
-        const products = await Product.find(filter)
+        }
+        let products = await Product.find(filter)
         .populate('images')
         .populate('categoryId')
         .populate('sizeId')
         .populate('colorId')
         .sort({ createdAt: 'desc' });
 
-        // console.log("products", products);
-        return NextResponse.json(products)
+        return NextResponse.json(products);
     } catch (error) {
         console.log("[PRODUCTS_GET]: ", error);
         return new NextResponse("Internal Error", { status: 500 })

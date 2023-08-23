@@ -34,9 +34,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 
 interface ProductFormProps {
     // initialData: ProductType & {
-    //     images: ImageType[]
-    // } | null;
-    // initialData: ProductType & {
     //     images: { url: string }[],
     //     categoryId: CategoryType
     // } | null;
@@ -48,14 +45,16 @@ interface ProductFormProps {
 
 const formSchema = z.object({
     name: z.string().min(1),
+    description: z.string().min(1),
     images: z.object({ url: z.string() }).array(),
-    price: z.coerce.number().min(1),
-    // price: z.any(),
+    price: z.coerce.number(),
+    availableQuantity: z.coerce.number(),
     categoryId: z.string().min(1),
     colorId: z.string().min(1),
     sizeId: z.string().min(1),
     isFeatured: z.boolean().default(false).optional(),
     isArchived: z.boolean().default(false).optional(), 
+    isFavourite: z.boolean().default(false).optional(), 
 });
 
 type ProductFormValues = z.infer<typeof formSchema>;
@@ -84,13 +83,16 @@ const ProductForm: React.FC<ProductFormProps> = ({
             price: parseFloat(String(initialData?.price.$numberDecimal))
         }: {
             name: '',
+            description: '',
             images: [],
             categoryId: '',
             price: 0,
+            availableQuantity: 0,
             colorId: '',
             sizeId: '',
             isFeatured: false,
-            isArchived: false,  
+            isArchived: false, 
+            isFavourite: false
         }
     });
 
@@ -190,12 +192,38 @@ const ProductForm: React.FC<ProductFormProps> = ({
                         />
                         <FormField 
                             control={form.control}
+                            name="description"
+                            render={({field})=>(
+                                <FormItem>
+                                    <FormLabel>Description</FormLabel>
+                                    <FormControl>
+                                        <Input disabled={loading} placeholder="Product description" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField 
+                            control={form.control}
                             name="price"
                             render={({field})=>(
                                 <FormItem>
                                     <FormLabel>Price</FormLabel>
                                     <FormControl>
                                         <Input disabled={loading} placeholder="8.25" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField 
+                            control={form.control}
+                            name="availableQuantity"
+                            render={({field})=>(
+                                <FormItem>
+                                    <FormLabel>Available Quantity</FormLabel>
+                                    <FormControl>
+                                        <Input disabled={loading} placeholder="50" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>

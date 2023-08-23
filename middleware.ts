@@ -1,9 +1,9 @@
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 import { authMiddleware } from "@clerk/nextjs"
 
 const allowedOrigins = process.env.NODE_ENV === 'production'
     ? ['https://www.yoursite.com', 'https://yoursite.com']
-    : ['http://localhost:3000']
+    : ['http://localhost:3000', 'http://localhost:3001']
 
 // This example protects all routes including api/trpc routes
 // Please edit this to allow other routes to be public as needed.

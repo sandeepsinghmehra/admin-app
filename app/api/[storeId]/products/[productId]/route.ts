@@ -15,7 +15,7 @@ export async function GET(
         if(!params.productId) {
             return new NextResponse("Product id is required", { status: 400 })
         }
-        const product = await Product.findOne({
+        let product = await Product.findOne({
                 _id: params.productId,
             })
             .populate('images')
@@ -38,12 +38,15 @@ export async function PATCH(
         const body = await req.json();
         const { 
             name,
+            description,
             price,
+            availableQuantity,
             categoryId,
             colorId,
             sizeId,
             images,
             isFeatured,
+            isFavourite,
             isArchived
         } = body;
         if(!userId) {
@@ -52,8 +55,14 @@ export async function PATCH(
         if(!name) {
             return new NextResponse("Name is required", { status: 400 })
         }
+        if(!description) {
+            return new NextResponse("Description is required", { status: 400 })
+        }
         if(!price) {
             return new NextResponse("Price is required", { status: 400 })
+        }
+        if(!availableQuantity) {
+            return new NextResponse("Available Quantity is required", { status: 400 })
         }
         if(!categoryId) {
             return new NextResponse("Category id is required", { status: 400 })
@@ -82,12 +91,15 @@ export async function PATCH(
           // Update the product's main fields
         await Product.updateOne({ _id: params.productId }, {
             name,
+            description,
             price,
+            availableQuantity: Number(availableQuantity),
             categoryId,
             colorId,
             sizeId,
             isFeatured,
             isArchived,
+            isFavourite,
             storeId: params.storeId
           }, { new: true });
 
