@@ -40,7 +40,7 @@ const orderSchema = new Schema<OrderType>({
     ],
     status: {
         type: String,
-        default: 'Pending'
+        default: 'Initiated'
     },
     createdAt: {
         type: Date,
