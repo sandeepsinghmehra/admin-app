@@ -11,8 +11,8 @@ export interface OrderItemType extends Document {
     name: string,
     price: string,
     quantity: number,
-    color: Types.ObjectId,
-    size: Types.ObjectId,
+    color: ColorType,
+    size: SizeType,
     orderId: OrderType,
     images: Array<any>,
     createdAt?: Date,
@@ -30,11 +30,11 @@ const orderItemSchema = new Schema<OrderItemType>({
     price: {
         type: String
     },
-    size:  {
+    size: {
         type: Schema.Types.ObjectId,
         ref: 'Size', // Referencing the 'Size' model
     },
-    color:  {
+    color: {
         type: Schema.Types.ObjectId,
         ref: 'Color', // Referencing the 'Color' model
     },
