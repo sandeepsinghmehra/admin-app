@@ -42,8 +42,8 @@ export async function POST(req: Request, {params}: {params: { storeId: string}})
                 quantity: productItem.quantity,
                 price: productItem.price.$numberDecimal,
                 name: productItem.name,
-                size: productItem.sizeId,
-                color: productItem.colorId,
+                size: productItem.sizeId[0]._id,
+                color: productItem.colorId[0]._id,
                 images: productItem.images
             });
         }));
