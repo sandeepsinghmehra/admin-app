@@ -35,15 +35,15 @@ export async function POST(req: Request, {params}: {params: { storeId: string}})
         // Assuming `orderItems` is an array of objects with `product-name, quantity` properties
         // console.log("cart orderItems", body.cart);
         const orderItems = await Promise.all(body.cart.map((productItem:any) => {
-            console.log("productItem.sizeId._id: ", productItem.sizeId._id, " productItem.colorId._id", productItem.colorId._id);
+            console.log("productItem", productItem,"productItem.sizeId._id: ", productItem.sizeId, " productItem.colorId._id", productItem.colorId);
             return OrderItem.create({ 
                 productId: productItem._id,
                 storeId: params.storeId,
                 quantity: productItem.quantity,
                 price: productItem.price.$numberDecimal,
                 name: productItem.name,
-                size: productItem.sizeId._id,
-                color: productItem.colorId._id,
+                size: productItem.sizeId,
+                color: productItem.colorId,
                 images: productItem.images
             });
         }));
