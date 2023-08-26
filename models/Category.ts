@@ -1,5 +1,5 @@
 import mongoose, { Document, Schema, Model, model, Types } from "mongoose";
-import Billboard, { BillboardType } from "./Billboard";
+import { BillboardType } from "./Billboard";
 import { ProductType } from "./Product";
 
 export interface CategoryType extends Document {
