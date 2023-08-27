@@ -2,12 +2,6 @@ import dynamic from 'next/dynamic'
  
 // Server Component:
 const Map = dynamic(() => import('@/components/map'), {ssr: false});
- 
-// const Map = LoadableFn(() => import('@/components/map'), {
-//   // The options, including ssr: false, go here
-//   ssr: false,
-// });
-
 
 import LineChart from "@/components/chart/line";
 import Store from "@/models/Store"
