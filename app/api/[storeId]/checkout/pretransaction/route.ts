@@ -17,9 +17,7 @@ export async function OPTIONS() {
     return NextResponse.json({}, { headers: corsHeaders });
 }
 export async function POST(req: Request, {params}: {params: { storeId: string}}) {
-    console.log("post called");
     const body = await req.json();
-    // console.log("body", body.cart);
     if(!params.storeId) {
         return new NextResponse("Store ID is required", { status: 400 })
     }
@@ -52,6 +50,7 @@ export async function POST(req: Request, {params}: {params: { storeId: string}})
             storeId: params.storeId,
             orderItems: orderItems.map(item => item._id),
         });
+       
         if(!createOrder._id) {
             return new NextResponse("Order ID is required", { status: 400 })
         }
@@ -114,6 +113,7 @@ export async function POST(req: Request, {params}: {params: { storeId: string}})
                 })
         }
         let paytmRes:any = await requestAsync();
+        
         return NextResponse.json({...paytmRes, orderId: createOrder._id}, { status: 200,  headers: corsHeaders });
     } catch (error) {
         console.log("[CHECKOUT_PRETRANSACTION_POST]: ", error);

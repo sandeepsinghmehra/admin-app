@@ -15,18 +15,21 @@ const OrdersPage = async({params}: {params: { storeId: string }}) => {
         },
     })
     .sort({ createdAt: 'desc' });
-
-    const formattedOrders: OrdersColumn[] = orders.map((order)=>({
-        id: order._id.toString(),
-        isPaid: order.isPaid,
-        phone: order.phone,
-        address: order.address,
-        products: order.orderItems.map((orderItem:any) => orderItem.product.name).join(", "),
-        totalPrice: formatter.format(order.orderItems.reduce((total, orderItem) => {
-            return total + Number(orderItem.productId.price)
-        }, 0)),
-        createdAt: format(order.createdAt as Date, "MMMM do, yyyy")
-    }))
+    
+    const formattedOrders: OrdersColumn[] = orders.map((order)=>{
+        console.log("orders", order.orderItems);
+        return ({
+            id: "#"+order._id.toString(),
+            status: order.status,
+            phone: order.phone,
+            address: order.address,
+            products: order?.orderItems?.map((orderItem:any) => orderItem.name).join(", "),
+            totalPrice: formatter.format(order.orderItems.reduce((total, orderItem) => {
+                return total + Number(orderItem.productId.price)
+            }, 0)),
+            createdAt: format(order.createdAt as Date, "MMMM do, yyyy")
+        })
+    });
     return (
         <div className="flex-col">
             <div className="flex-1 space-y-4 p-8 pt-6">
