@@ -91,7 +91,6 @@ export async function GET(
     {params}: {params: { storeId: string}}
 ) {
     try {
-        console.log("products GET called")
         const { searchParams } = new URL(req.url);
         const categoryId = searchParams.get("categoryId") || undefined;
         const sizeId = searchParams.get("sizeId") || undefined;
@@ -106,8 +105,13 @@ export async function GET(
             storeId: params.storeId,
             isArchived: false,
         };
+        
         if (name) {
-            filter.name = name;
+            //replace all the '%20' value to ''
+            name.replaceAll('%20', ' ');
+            // Create a case-insensitive regular expression for the name
+            const nameRegex = new RegExp(name.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&'), 'i');
+            filter.name = nameRegex;
         }
         if (categoryId) {
             filter.categoryId = categoryId;
@@ -124,6 +128,8 @@ export async function GET(
         if (isFeatured) {
             filter.isFeatured = true;
         }
+
+        // console.log("filter: ", filter);
         let products = await Product.find(filter)
         .populate('images')
         .populate('categoryId')
@@ -131,6 +137,7 @@ export async function GET(
         .populate('colorId')
         .sort({ createdAt: 'desc' });
 
+        // console.log("products results: ",products);
         return NextResponse.json(products);
     } catch (error) {
         console.log("[PRODUCTS_GET]: ", error);
